@@ -14,28 +14,25 @@ int main(void)
         height = GetInt();
     }
     while (height < 0 || height > 23);
-    
-    int drawHeight = height;
    
     {
         //Loop will run "height" times
         for (int i = 0; i < height; i++)
         {
             //Within main loop, print spaces equal to current drawing height - 1 
-            for (int n = 1; n < drawHeight; n++)
+            for (int j = 0; j < (height - 1) - i; j++)
             {
                 printf(" ");
             }
             
-            //Within main loop, print spaces equal to (pyramid height - current draw height) + 2
-            for (int m = 0; m < (height - drawHeight) + 2; m++)
+            //Within main loop, print spaces equal to current loop + 2
+            for (int m = 0; m < i + 2; m++)
             {
                 printf("#");
             }
             
             printf("\n");
             
-            drawHeight--;
         }
     }
     return 0;
