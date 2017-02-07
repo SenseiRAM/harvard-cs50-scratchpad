@@ -181,7 +181,7 @@ void init(void)
     }
     
     //value of blank is 81, since highest possible tile value is 80
-    board[blankI][blankJ] = 81;
+    board[blankI][blankJ] = 0;
     
     //if dimensions of grid are even, swap 1 and 2 tiles
     if (d % 2 == 0)
@@ -200,7 +200,7 @@ void draw(void)
     {
         for (int j = 0; j < d; j++)
         {
-            if (board[i][j] == 81)
+            if (board[i][j] == board[blankI][blankJ])
             {
                 printf("|____|");
             }
@@ -217,11 +217,6 @@ void draw(void)
  * If tile borders empty space, moves tile and returns true, else
  * returns false. 
  */
-/* RELEVANT SECTION
-This failed when I replaced the 81 value with zero, because I was checking against the value of the board[blankI][blankJ] index,
-rather than the value / positions of blankI and blankJ themselves.
-*/
-
 bool move(int tile)
 {
     for (int i = 0; i < d; i++)
@@ -230,30 +225,30 @@ bool move(int tile)
         {
             if (board[i][j] == tile)
             {
-                if (board[i - 1][j] == board[blankI][blankJ])
+                if (i - 1 == blankI && j == blankJ)
                 {
-                    board[i][j] = 81;
+                    board[i][j] = board[blankI][blankJ];
                     board[i - 1][j] = tile;
                     blankI = i;
                     return true;
                 }
-                if (board[i + 1][j] == board[blankI][blankJ])
+                if (i + 1 == blankI && j == blankJ)
                 {
-                    board[i][j] = 81;
+                    board[i][j] = board[blankI][blankJ];
                     board[i + 1][j] = tile;
                     blankI = i;
                     return true;
                 }
-                if (board[i][j - 1] == board[blankI][blankJ])
+                if (i == blankI && j - 1 == blankJ)
                 {
-                    board[i][j] = 81;
+                    board[i][j] = board[blankI][blankJ];
                     board[i][j - 1] = tile;
                     blankJ = j;
                     return true;
                 }
-                if (board[i][j + 1] == board[blankI][blankJ])
+                if (i == blankI && j + 1 == blankJ)
                 {
-                    board[i][j] = 81;
+                    board[i][j] = board[blankI][blankJ];
                     board[i][j + 1] = tile;
                     blankJ = j;
                     return true;
